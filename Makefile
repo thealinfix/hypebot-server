@@ -1,29 +1,13 @@
-.PHONY: help install dev prod test migrate clean
-
-help:
-	@echo "Available commands:"
-	@echo "  install  - Install dependencies"
-	@echo "  dev      - Run development server"
-	@echo "  prod     - Run production server"
-	@echo "  test     - Run tests"
-	@echo "  migrate  - Run database migrations"
-	@echo "  clean    - Clean up cache files"
+.PHONY: run dev install test
 
 install:
-	pip install -r requirements.txt
+   pip install -r requirements.txt
 
 dev:
-	python -m src.main
-
-prod:
-	docker-compose -f infrastructure/docker/docker-compose.yml up
+   python -m src.main
 
 test:
-	pytest tests/
+   pytest tests/
 
-migrate:
-	alembic upgrade head
-
-clean:
-	find . -type d -name __pycache__ -exec rm -rf {} +
-	find . -type f -name "*.pyc" -delete
+run:
+   docker-compose -f infrastructure/docker/docker-compose.yml up
